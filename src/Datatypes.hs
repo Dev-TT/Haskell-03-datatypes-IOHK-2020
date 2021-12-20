@@ -26,7 +26,8 @@ import Control.Applicative ((<|>), liftA2)
 -- False
 --
 implies :: Bool -> Bool -> Bool
-implies = error "TODO: define implies"
+implies _ True = True
+implies a1 _ = not a1
 
 -- Task Datatypes-2.
 --
@@ -34,7 +35,7 @@ implies = error "TODO: define implies"
 -- of 'not' and '||', both of which are predefined.
 
 implies' :: Bool -> Bool -> Bool
-implies' = error "TODO: define implies'"
+implies' a1 a2 = a2 || not a1
 
 -- Task Datatypes-3.
 --
@@ -47,7 +48,8 @@ implies' = error "TODO: define implies'"
 -- Just 2
 --
 orelse :: Maybe a -> Maybe a -> Maybe a
-orelse = error "TODO: define orelse"
+orelse Nothing y = y
+orelse (Just x) _ = Just x
 
 -- Task Datatypes-4.
 --
@@ -58,7 +60,8 @@ orelse = error "TODO: define orelse"
 -- Just 8
 --
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
-mapMaybe = error "TODO: define mapMaybe"
+mapMaybe _ Nothing = Nothing
+mapMaybe func (Just a) = Just (func a)
 
 -- Task Datatypes-5.
 --
@@ -69,6 +72,12 @@ mapMaybe = error "TODO: define mapMaybe"
 -- exactly the same on the examples from the slides
 -- as the 'orelse' function.
 
+
+    -- JG: CONFIRMED imported successfully
+    -- JG: CONFIRMED operator works as 'orelse' function
+
+
+
 -- Task Datatypes-6.
 --
 -- In GHCi, check the existing operator (<$>).
@@ -76,6 +85,9 @@ mapMaybe = error "TODO: define mapMaybe"
 -- Observe what type it has. Observe that it behaves
 -- exactly the same on the examples from the slides
 -- as the 'mapMaybe' function.
+
+    -- JG: CONFIRMED operator works as 'orelse' function
+
 
 -- Task Datatypes-7.
 --
@@ -85,6 +97,7 @@ mapMaybe = error "TODO: define mapMaybe"
 --
 -- Define the function without using other functions.
 
+
 -- |
 -- >>> pairMaybe (Just 'x') (Just 'y')
 -- Just ('x','y')
@@ -93,7 +106,9 @@ mapMaybe = error "TODO: define mapMaybe"
 -- Nothing
 --
 pairMaybe :: Maybe a -> Maybe b -> Maybe (a, b)
-pairMaybe = error "TODO: define pairMaybe"
+pairMaybe (Just a) (Just b) = Just (a,b)
+pairMaybe _ _ = Nothing
+
 
 -- Task Datatypes-8.
 --
@@ -107,14 +122,17 @@ pairMaybe = error "TODO: define pairMaybe"
 -- Nothing
 --
 liftMaybe :: (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c
-liftMaybe = error "TODO: define liftMaybe"
+liftMaybe f (Just x) (Just y) = Just (f x y)
+liftMaybe _ _ _ = Nothing
+
 
 -- Task Datatypes-9.
 --
 -- Reimplement 'pairMaybe' using 'liftMaybe'.
 
 pairMaybe' :: Maybe a -> Maybe b -> Maybe (a, b)
-pairMaybe' = error "TODO: define pairMaybe'"
+pairMaybe' (Just x) (Just y) =  pairMaybe (Just x) (Just y)
+pairMaybe' _ _ = Nothing
 
 -- Task Datatypes-10.
 --
@@ -129,7 +147,8 @@ pairMaybe' = error "TODO: define pairMaybe'"
 -- Nothing
 --
 addMaybes :: Maybe Int -> Maybe Int -> Maybe Int
-addMaybes = error "TODO: define addMaybes"
+addMaybes (Just x) (Just y) =  liftMaybe (+) (Just x) (Just y)
+addMaybes _ _ = Nothing
 
 -- Task Datatypes-11.
 --
