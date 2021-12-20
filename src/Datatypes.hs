@@ -26,7 +26,9 @@ import Control.Applicative ((<|>), liftA2)
 -- False
 --
 implies :: Bool -> Bool -> Bool
-implies = error "TODO: define implies"
+--implies = error "TODO: define implies"
+implies _ True = True
+implies a1 _ = not a1
 
 -- Task Datatypes-2.
 --
@@ -34,7 +36,8 @@ implies = error "TODO: define implies"
 -- of 'not' and '||', both of which are predefined.
 
 implies' :: Bool -> Bool -> Bool
-implies' = error "TODO: define implies'"
+--implies' = error "TODO: define implies'"
+implies' a1 a2 = a2 || not a1
 
 -- Task Datatypes-3.
 --
@@ -47,7 +50,9 @@ implies' = error "TODO: define implies'"
 -- Just 2
 --
 orelse :: Maybe a -> Maybe a -> Maybe a
-orelse = error "TODO: define orelse"
+--orelse = error "TODO: define orelse"
+orelse Nothing y = y
+orelse (Just x) _ = Just x
 
 -- Task Datatypes-4.
 --
@@ -58,7 +63,9 @@ orelse = error "TODO: define orelse"
 -- Just 8
 --
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
-mapMaybe = error "TODO: define mapMaybe"
+--mapMaybe = error "TODO: define mapMaybe"
+mapMaybe _ Nothing = Nothing
+mapMaybe func (Just a) = Just (func a)
 
 -- Task Datatypes-5.
 --
