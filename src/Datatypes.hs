@@ -147,8 +147,11 @@ pairMaybe' _ _ = Nothing
 -- Nothing
 --1
 
---addMaybes :: Maybe Int -> Maybe Int -> Maybe Int
-addMaybes (Just x) (Just y) =  liftMaybe (+) (Just x) (Just y)
+--addMaybes :: Maybe Int -> Maybe Int -> Maybe Int          -- original type signature
+addMaybes :: Num c => Maybe c -> Maybe c -> Maybe c         -- NEW type signature from Task 11
+--addMaybes (Just x) (Just y) =  liftMaybe (+) (Just x) (Just y)        -- original use liftMaybe
+addMaybes (Just x) (Just y) =  liftA2 (+) (Just x) (Just y)             -- replacing liftMaybe with liftA2 for task 13
+
 addMaybes _ _ = Nothing
 
 -- Task Datatypes-11.
@@ -160,19 +163,36 @@ addMaybes _ _ = Nothing
 -- See if it works if you use the function with
 -- fractional numbers.
 
-        -- JH: Inferred type: addMaybes :: Num c => Maybe c -> Maybe c -> Maybe c
+        -- DevTT: Inferred type: addMaybes :: Num c => Maybe c -> Maybe c -> Maybe c
         -- yes it works!  
         --  >>> addMaybes (Just 7.3) (Just 3.3) 
         -- 10.6
-        
--- Task Datatypes-12.
+
+-- Task Datatypes-12.             - I needed help here
 --
 -- Reimplement 'addMaybes' from the slides, this
 -- time using 'pairMaybe', 'uncurry', and
 -- 'mapMaybe'.
+                      -- DevTT Notes:
+                      -- pairMaybe (Just a) (Just b) = Just (a,b)                               --in here, its ok, Just (x, y) 
+
+                      -- uncurry :: (a -> b -> c) -> (a, b) -> c          -- Any type!          --in here f is +
+                      -- uncurry f (a, b) = f a b             
+                      
+                      -- mapMaybe func (Just a) = Just (func a)       ( func :: a -> b )        --in here "a" is a Pair!!!
+
+                      -- addmaybes' (Just x) (Just y)  = Just (x+y)
 
 addMaybes' :: Maybe Int -> Maybe Int -> Maybe Int
-addMaybes' = error "TODO: define addMaybes'"
+              -- pairMaybe (Just x) (Just y) = Just (x, y)
+              -- 
+addMaybes' (Just x) (Just y) = mapMaybe (uncurry (+)) (pairMaybe (Just x) (Just y))
+                                          --HERE
+                                          -- IS 
+                                          -- the trick
+addMaybes' _ _ = Nothing
+
+
 
 -- Task Datatypes-13.
 --
@@ -182,6 +202,13 @@ addMaybes' = error "TODO: define addMaybes'"
 -- exactly the same on 'Maybe' as 'liftMaybe'; for
 -- example, by replacing 'liftMaybe' by 'liftA2'
 -- in the definition of the 'addMaybe'.
+
+
+      -- DevTT:  
+        -- *Datatypes> :t liftA2
+        -- liftA2 :: Applicative f => (a -> b -> c) -> f a -> f b -> f c
+
+        -- Confirmed
 
 -- Task Datatypes-14.
 --
@@ -194,7 +221,9 @@ addMaybes' = error "TODO: define addMaybes'"
 -- (8,14)
 --
 split :: (a -> b) -> (a -> c) -> a -> (b, c)
-split = error "TODO: define split"
+--split = error "TODO: define split"
+split f1 f2 num = (f1 num, f2 num)
+
 
 -- Task Datatypes-15.
 --
