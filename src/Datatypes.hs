@@ -146,7 +146,8 @@ pairMaybe' _ _ = Nothing
 -- >>> addMaybes Nothing (Just 0)
 -- Nothing
 --1
-addMaybes :: Maybe Int -> Maybe Int -> Maybe Int
+
+--addMaybes :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybes (Just x) (Just y) =  liftMaybe (+) (Just x) (Just y)
 addMaybes _ _ = Nothing
 
@@ -159,6 +160,11 @@ addMaybes _ _ = Nothing
 -- See if it works if you use the function with
 -- fractional numbers.
 
+        -- JH: Inferred type: addMaybes :: Num c => Maybe c -> Maybe c -> Maybe c
+        -- yes it works!  
+        --  >>> addMaybes (Just 7.3) (Just 3.3) 
+        -- 10.6
+        
 -- Task Datatypes-12.
 --
 -- Reimplement 'addMaybes' from the slides, this
