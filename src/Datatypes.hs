@@ -145,7 +145,7 @@ pairMaybe' _ _ = Nothing
 --
 -- >>> addMaybes Nothing (Just 0)
 -- Nothing
---
+--1
 addMaybes :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybes (Just x) (Just y) =  liftMaybe (+) (Just x) (Just y)
 addMaybes _ _ = Nothing
