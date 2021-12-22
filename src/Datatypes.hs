@@ -189,7 +189,7 @@ addMaybes' :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybes' (Just x) (Just y) = mapMaybe (uncurry (+)) (pairMaybe (Just x) (Just y))
                                           --HERE
                                           -- IS 
-                                          -- the trick
+                                          -- the trick!
 addMaybes' _ _ = Nothing
 
 
@@ -235,9 +235,17 @@ split f1 f2 num = (f1 num, f2 num)
 --
 -- >>> "Mongolia" ++ "Haskell"
 -- "MongoliaHaskell"
---
+--            
+
+            -- DevTT:
+            -- >> 5:[1,2,3,4,5]
+            -- [5,1,2,3,4,5]  
+
+            
 (++) :: [a] -> [a] -> [a]
-(++) = error "TODO: define (++)"
+[] ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+
 
 -- Task Datatypes-16.
 --
@@ -253,7 +261,8 @@ split f1 f2 num = (f1 num, f2 num)
 -- True
 --
 or :: [Bool] -> Bool
-or = error "TODO: define or"
+or []     = False
+or (x:xs) = x || (or xs)  
 
 -- Task Datatypes-17.
 --
