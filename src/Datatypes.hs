@@ -319,6 +319,10 @@ reverse' = reverseAcc []
 -- Do you observe one of the two versions to be faster
 -- than the other?
 
+    -- JH: reverse' is many times FASTER!
+    -- reverse does double recursion
+
+
 -- Task Datatypes-21.
 --
 -- Reimplement 'filter' from the slides.
@@ -328,7 +332,12 @@ reverse' = reverseAcc []
 -- [2,4,6]
 --
 filter :: (a -> Bool) -> [a] -> [a]
-filter = error "TODO: define filter"
+filter _ []     = []
+filter p (x:xs) 
+  | p x       = x : filter p xs
+  | otherwise = filter p xs
+
+
 
 -- Task Datatypes-22.
 --
@@ -346,7 +355,9 @@ filter = error "TODO: define filter"
 -- [1,2,3,4,6,8,12,24]
 --
 divisors :: Integral a => a -> [a]
-divisors = error "TODO: define divisors"
+--divisors = error "TODO: define divisors"
+divisors 1 = []
+divisors _ = [1]
 
 -- Task Datatypes-23.
 --
