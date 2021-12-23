@@ -269,7 +269,9 @@ or (x:xs) = x || (or xs)
 -- Reimplement the function 'reverse' from the slides.
 
 reverse :: [a] -> [a]
-reverse = error "TODO: define reverse"
+reverse []     = []
+reverse (x:xs) = reverse xs ++ [x]
+
 
 -- Task Datatypes-18.
 --
@@ -287,7 +289,10 @@ reverse = error "TODO: define reverse"
 -- "lleksaHMongolia"
 --
 reverseAcc :: [a] -> [a] -> [a]
-reverseAcc = error "TODO: define reverseAcc"
+reverseAcc xs [] = xs
+reverseAcc xs (y:ys) = reverseAcc (y:xs) ys
+
+
 
 -- Task Datatypes-19.
 --
