@@ -355,9 +355,10 @@ filter p (x:xs)
 -- [1,2,3,4,6,8,12,24]
 --
 divisors :: Integral a => a -> [a]
---divisors = error "TODO: define divisors"
-divisors 1 = []
-divisors _ = [1]
+divisors n = filter p [1..n]
+  where p x = n `mod` x == 0  
+                                                  -- Also:
+                                                  -- divisors n = filter (\x -> mod n x == 0) [1 .. n]
 
 -- Task Datatypes-23.
 --
@@ -374,6 +375,9 @@ divisors _ = [1]
 -- probably cannot wait for the computation to finish.
 --
 -- You can interrupt the computation using Ctrl-C.
+
+        -- it works!
+
 
 -- Task Datatypes-24.
 --
@@ -395,15 +399,27 @@ divisors _ = [1]
 -- True
 --
 isPrime :: Integral a => a -> Bool
-isPrime = error "TODO: define isPrime"
+isPrime n = (length (divisors n)) ==2
+
 
 -- Task Datatypes-25.
 --
 -- What happens if you type in '[1 ..]' into GHCi?
 
+    -- JH: it goes forever:
+    --  [1,2,3,4,5,6,7,8,9,....
+
+
 -- Task Datatypes-26.
 --
 -- Figure out what the pre-defined function 'take' does.
+      
+      --
+      --  *Datatypes> :i take
+      -- take :: Int -> [a] -> [a]       -- Defined in ‘GHC.List’
+
+      --  it takes n items from list
+
 
 -- Task Datatypes-27.
 --
@@ -417,11 +433,16 @@ isPrime = error "TODO: define isPrime"
 -- True
 --
 thousandPrimes :: [Int]
-thousandPrimes = error "TODO: define thousandPrimes"
+thousandPrimes  = take 1000 (filter isPrime [1..])
+
+
 
 -- After computing 'thousandPrimes' in GHCi once, compute
 -- it a second time. What do you observe?
 
+      -- SO QUICK!
+
+      
 -- GO TO Tables.hs
 
 -- RETURN HERE from Transactions.hs
