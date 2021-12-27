@@ -5,6 +5,46 @@ module Datatypes where
 import Prelude hiding ((++), or, reverse, filter)
 import Control.Applicative ((<|>), liftA2)
 
+
+
+{-
+--07-IO CLASS
+
+import Control.Monad (liftM, liftM2)
+import Data.Char (toUpper)
+import System.IO (Handle, IOMode (ReadMode), hGetLine, hIsEOF, withFile)
+import System.IO.Error (catchIOError)
+
+
+getTwoLines :: IO String
+getTwoLines = getLine >> getLine
+
+duplicateLine :: IO String
+duplicateLine = liftM (\ x -> x ++ x) getLine
+
+-- toUpper 'x'
+-- X
+
+-- Shouting: 
+-- liftM (map toUpper) getLine
+
+joinTwoLines :: IO String
+joinTwoLines = liftM2 (++) getLine getLine
+
+
+
+
+shout :: IO String
+shout = liftM (map toUpper) getLine
+
+
+
+
+
+--END 07-IO Class
+-}
+
+
 -- Task Datatypes-1.
 --
 -- Define logical implication, which is given

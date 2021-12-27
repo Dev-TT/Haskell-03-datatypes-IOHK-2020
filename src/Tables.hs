@@ -2,6 +2,7 @@ module Tables where
 
 import Prelude hiding (lookup)
 
+
 -- START HERE AFTER reaching the pointer in Datatypes.hs
 
 newtype Table k v = Table [(k, v)]
@@ -16,7 +17,7 @@ newtype Table k v = Table [(k, v)]
 -- Re-implement 'empty'.
 
 empty :: Table k v
-empty = error "TODO: implement empty"
+empty = Table []
 
 -- Task Tables-2.
 --
@@ -24,6 +25,7 @@ empty = error "TODO: implement empty"
 
 insert :: k -> v -> Table k v -> Table k v
 insert = error "TODO: implement insert"
+--insert k v t = (k, v) : t
 
 -- Task Tables-3.
 --

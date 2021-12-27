@@ -15,6 +15,8 @@ library
   exposed-modules:     Datatypes
                      , Tables
                      , Transactions
+                     , T1
+                     , IO_class
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
   ghc-options:         -Wall
